@@ -6,10 +6,7 @@ function out=ANhankel_transform(sig,vec,pOrder)
 %
 % The function hankel_matrix is based on https://doi.org/10.1364/JOSAA.21.000053
 % The function bessel_zeros is based on: doi.org/10.1016/0021-9991(79)90134-7 
-%
-%	Example: Propagation of radial field
-%
- 
+
 h = hankel_matrix(pOrder, vec(end),numel(vec), 1e-13);
 HT  = @(f1) (h.T  * (f1 ./ h.J * h.rmax)) .* h.J / h.vmax;
 % the inverse transform is:
