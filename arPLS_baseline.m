@@ -1,7 +1,6 @@
 
 function baseline = arPLS_baseline(signal, smoothness_param, min_diff)
-% implements Baseline correction using adaptive iteratively reweighted
-% penalized leastsquares (10.1039/B922045C)
+% implements Baseline correction using adaptive iteratively reweighted penalized least squares (10.1039/B922045C)
 
 % defaults
 if nargin<2
