@@ -1,10 +1,7 @@
 function d = AN_get2Ddata2(x, y, vec,N)
 %This function loads an input of the format [x y int] and
 %generates a matrix of int spanned by x and y. 
-%The matrix are plotted into a two-dimensional colorplot with the
-%colorbar representing the intensity.
  
-
 %Resetting zeros
 x = x - (min(x(:)));
 y = y - (min(y(:)));
