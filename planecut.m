@@ -1,9 +1,13 @@
-function  varargout  = planecut(X,Y,Z,X1,Y1,Z1,translation_vec,rotation_vec)
+function  varargout  = planecut(X,Y,Z,X1,Y1,Z1,translation_vec,rotation_vec,cutTolerance)
 % extracts an arbitray cut from a plane (X1,Y1,Z1) and a Z(X,Y) manifold
 % by first rotating around the origin by rotation_vec=(alpha,beta,gamma) [deg]
 % and translating to some point given by translation_vec (xt,yt,zt);
 % natan@stanford.edu Ver 1 , 11 April 2020
+if nargin<9
+    cutTolerance = 5e-2;
+end
 
+    
 XYZ=[X1(:),Y1(:),Z1(:)];
 
 Rx=R3d(rotation_vec(1),[1 0 0]);
@@ -21,7 +25,7 @@ subX = xd + translation_vec(1);
 subY = yd + translation_vec(2);
 subZ = zd + translation_vec(3);
 
-cutTolerance = 5e-2;
+
 cut=0;
 while max(sum(cut))<2 % cut should be less than 2 pixels wide
     cutTolerance = cutTolerance+1e-2;
