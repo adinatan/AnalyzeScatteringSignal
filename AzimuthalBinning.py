@@ -239,6 +239,10 @@ class azimuthalBinning(DetObjectFunc):
         self.Cake_idxs = np.ravel_multi_index((self.idxphi,self.idxq),(self.nphi,self.nq))
         self.Cake_idxs[self._mask.ravel()] = 0; # send the masked ones in the first bin
         self.Cake_Npixel = np.bincount(self.Cake_idxs,minlength=self.nq*self.nphi)
+
+        self.Cake_Npixel_squared = np.bincount(self.Cake_idxs,weights=self.Cake_idxs**2,minlength=self.nq*self.nphi)
+        
+        self.Cake_stds = np.sqrt(self.Cake_Npixel_squared/self.Cake_Npixel - (self.Cake_Npixel/(self.nq*self.nphi))**2)
         #self.Cake_Npixel = self.Npixel[:self.nq*self.nphi]
         self.Cake_norm=np.reshape(self.Cake_Npixel,(self.nphi,self.nq));#/self.correction1D
         #self.correction1D    =self.correction1D[:self.nq]/self.Npixel
