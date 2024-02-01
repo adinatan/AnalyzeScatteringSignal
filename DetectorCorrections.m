@@ -10,7 +10,7 @@ function [Q,Geometry,Polarization]=DetectorCorrections(photonenergy,xyz0,pxyz)
 % Inputs:
 % photonenergy - a scalar in keV
 % xyz0 -  a 1x3 vector for the estiamted x,y,z shifts to center the detector and find its distance to the sample
-% pxyz -  an Nx3 array with coordinates for all detector pixel positions in the lab frame
+% pxyz -  an Nx3 array with coordinates for all detector pixel positions in the lab frame (N pixels, xyz postion per pixel)
 
 % Outputs:
 % Q - an Nx3 array of radial Q magnitudes per detector pixels 
