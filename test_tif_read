@@ -1,0 +1,30 @@
+ff = dir(fullfile(outDir,"diff_*.mat"));
+
+% Read first one to determine detector size
+S = load(fullfile(ff(1).folder,ff(1).name),"D");
+[ny,nx,~] = size(S.D);
+
+sumDiff = zeros(ny,nx,'double');
+nValid  = zeros(ny,nx,'double');
+
+for f = 1:numel(ff)
+
+    S = load(fullfile(ff(f).folder,ff(f).name),"D");
+
+    D = S.D;
+    good = isfinite(D);
+
+    D(~good) = 0;
+
+    sumDiff = sumDiff + sum(D,3,'double');
+    nValid  = nValid  + sum(good,3);
+
+end
+
+avgDiff = sumDiff ./ nValid;
+
+figure
+imagesc(avgDiff)
+axis image
+colorbar
+title('Average I_{even} - I_{odd}')
