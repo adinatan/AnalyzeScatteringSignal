@@ -750,3 +750,39 @@ function m = bin_mean_gpu(I,gPixIdx,gBinIdx,nBins)
     m = s ./ max(c,single(1));
     m(c==0) = NaN;
 end
+
+%%%%%%%%%%%%%%%%%%
+
+============================================================
+PILATUS ARCHITECTURE BENCHMARK
+============================================================
+Files found : 14520
+Input size  : 0.144 TB
+Frame IDs   : 1 ... 14520
+Window      : 3 (6 TIFFs/output)
+CPU workers : 2
+Timed TIFFs/test: 180 (~1.78 GB)
+Warm-up/test    : 12 TIFFs
+GPU          : Quadro RTX 4000, 8.6 GB
+
+------------------------------------------------------------
+TEST 1/3: CPU 1000q x 360phi + qphi(t)
+------------------------------------------------------------
+Warm-up...
+Error using  & 
+Arrays have incompatible sizes for this operation.
+
+Error in benchmark_code>process_one_group_cpu (line 510)
+        n1 = sum(double(raw1(normIdx & valid1(:))));
+
+Error in benchmark_code>run_cpu_pipeline (line 436)
+        parfor g = 1:nOut
+
+Error in benchmark_code (line 304)
+        run_cpu_pipeline(warmPaths,window,nq,nphi,CPU_WORKERS, ...
+
+Related documentation
+
+
+
+>> 
