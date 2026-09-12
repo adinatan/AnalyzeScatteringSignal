@@ -120,3 +120,29 @@ xlabel('\phi'); ylabel('q'); title('I(q,\phi) of all-image normalized sum');
 
 % Read one saved per-window DeltaI(q,phi), if needed:
 [qphi1,iq1,sourceFiles1] = read_pilatus_qphi(outDir,1);  
+
+
+%%
+% I    : 2D intensity image
+% qmap : same size as I, radial q value at each pixel
+
+dq = 0.01;   % q-bin width
+
+qedges = min(qmap(:)):dq:max(qmap(:));
+q = (qedges(1:end-1) + qedges(2:end))/2;
+
+bin = discretize(qmap(:), qedges);
+
+valid = ~isnan(bin) & isfinite(I(:));
+
+% Mean intensity in each radial q bin
+Iq = accumarray(bin(valid), I(valid), ...
+    [numel(q), 1], @mean, NaN);
+
+% Number of pixels contributing to each bin
+Npix = accumarray(bin(valid), 1, ...
+    [numel(q), 1], @sum, 0);
+
+plot(q, Iq);
+xlabel('q');
+ylabel('I(q)');
