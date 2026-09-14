@@ -41,10 +41,12 @@ clc
 % USER SETTINGS
 % ========================================================================
 
-inDir = "X:\2026-3\RuettSept26\data\fresh_ag_1\run3_UV\";
+% ========================================================================
+inDir = "X:\2026-3\RuettSept26\data\GC\run12_UV\";
 
 outDir = ...
-    "C:\Users\11idbuser\Downloads\Natan\pilatus_fast_diff_matlab\analysis\run003_optimized";
+    "C:\Users\11idbuser\Downloads\Natan\pilatus_fast_diff_matlab\analysis\run012";
+
 
 % ------------------------------------------------------------------------
 % FILE SUBSET
@@ -58,8 +60,8 @@ outDir = ...
 %
 % Pair numbering below is RELATIVE TO THIS SELECTED SUBSET.
 % ------------------------------------------------------------------------
-FILE_START = 1;
-FILE_END   = inf;
+FILE_START = 3600*3+1;
+FILE_END   = 3600*4;
 
 % ------------------------------------------------------------------------
 % SUBTRACTION PATTERN
@@ -76,11 +78,11 @@ FILE_END   = inf;
 %       PAIR_OFFSET = 2;
 %       PAIR_STRIDE = 2;
 % ------------------------------------------------------------------------
-PAIR_OFFSET = 2;
+PAIR_OFFSET = 1;
 PAIR_STRIDE = 2;
 
 % Number of pair differences averaged into each DeltaI(q) output.
-WINDOW = 3;
+WINDOW = 1;
 
 % Benchmark winner.
 NQ = 1000;
@@ -97,7 +99,7 @@ CORRECTION_MODE = "divide";
 
 % Output filename encodes the pairing pattern.
 outputFile = fullfile(outDir, ...
-    sprintf("run003_offset%d_stride%d_W%d_Nq%d_optimized.mat", ...
+    sprintf("run00_offset%d_stride%d_W%d_Nq%d_optimized.mat", ...
     PAIR_OFFSET,PAIR_STRIDE,WINDOW,NQ));
 
 %% ========================================================================
@@ -888,3 +890,21 @@ function mustBePositiveInteger(x,name)
         error('%s must be a positive integer.',name);
     end
 end
+
+
+%%
+figure('Name','Average 2-D difference');
+nexttile
+imagesc(R.avgDiff2D);
+caxis([-1e-6 1e-6])
+axis image
+colorbar
+colormap("jet")
+
+nexttile
+plot( R.q,smooth( trimmean(R.deltaIq,37,2)))
+
+xlabel('Q')
+
+%%
+ 
